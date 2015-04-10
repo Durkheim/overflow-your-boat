@@ -11,7 +11,7 @@
     <div class="sitename">Overflow Your Boat</div>
     <div class="nav">
 <% if current_user %>
-  Signed in as <%= current_user.username %> | <%= link_to "Logout", '/logout', {method: :delete} %>
+  Signed in as <%= link_to current_user.username, user_path(current_user) %> | <%= link_to "Logout", '/logout', {method: :delete} %>
 <% else %>
   <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
 <% end %>
