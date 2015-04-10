@@ -3,10 +3,11 @@ require 'rails_helper'
 describe SessionsController do
   let!(:user) {User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")}
 
-  describe "post#create" do
+  describe "POST #create" do
     context "when password is correct" do
-      it "assigns the requested user as @user" do
-        post :create, { :user => {username: "Test_User", email: "email@email.com", password: "password", location: "Chicago" }}
+      it "assigns the requested user as user" do
+        user = User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")
+        post :create, { id: user.id  }
         expect(assigns(:user)).to be_a(User)
       end
 
