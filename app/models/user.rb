@@ -5,4 +5,7 @@ class User < ActiveRecord::Base
 
   has_many :answers_provided, class_name: "Answer", foreign_key: :answerer_id
   has_many :comments_provided, class_name: "Comment", foreign_key: :commenter_id
+
+  validates :username, :uniqueness => true
+  validates :email, :uniqueness => true, :format => /.+@.+\..+/
 end
