@@ -1,0 +1,13 @@
+header {
+  padding: .5em;
+}
+
+.sitename {
+  display: inline-block;
+  font-size: 2em;
+}
+
+.nav {
+  display: inline-block;
+  float: right;
+}
