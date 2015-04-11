@@ -1,7 +1,8 @@
 require 'rails_helper'
 
+user = FactoryGirl.build(:user)
+
 describe User do
-  let(:user) {User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")}
 
   describe "#username" do
     it "should have a unique username" do
@@ -9,9 +10,7 @@ describe User do
     end
 
     it "should not accept a username that is not unique" do
-      user = User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")
-      user_two = User.create(username: "Test_User", email: "email_two@email.com", password: "password", location: "Chicago")
-      expect(user_two.id).to eq nil
+      expect(FactoryGirl.build(:user, username: nil)).to_not be_valid
     end
   end
 
@@ -21,14 +20,12 @@ describe User do
     end
 
     it "should not accept an email that is not unique" do
-      user = User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")
-      user_two = User.create(username: "Test_User_Two", email: "email@email.com", password: "password", location: "Chicago")
-      expect(user_two.id).to eq nil
+      expect(FactoryGirl.build(:user, email: nil)).to_not be_valid
     end
 
     it "should only accept an email with proper formatting" do
-      user = User.create(username: "Test_User", email: "emailemail.com", password: "password", location: "Chicago")
-      expect(user.id).to eq nil
+      bad_user = User.create(username: "Test_User", email: "emailemail.com", password: "password", location: "Chicago")
+      expect(bad_user.id).to eq nil
     end
 
   end

@@ -41,6 +41,8 @@ group :development, :test do
 
   gem 'faker'
 
+  gem 'factory_girl_rails'
+
   # gem 'turbolinks'
 
   # Access an IRB console on exception pages or by using <%= console %> in views

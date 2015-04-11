@@ -1,8 +1,9 @@
 require 'rails_helper'
 
+user = FactoryGirl.build(:user)
+question = FactoryGirl.build(:question, user: user)
+
 describe Question do
-  let(:user) {User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")}
-  let(:question) {user.questions.create(title: "What is Travis CI?", description: "Seriously, what is it?")}
 
   it "should have a title" do
     expect(question.title).to eq("What is Travis CI?")

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AnswersController, type: :controller do
+# RSpec.describe AnswersController, type: :controller do
 
   describe "GET #create" do
     it "returns http success" do
@@ -9,4 +9,4 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
-end
+# end
