@@ -10,9 +10,7 @@ describe User do
     end
 
     it "should not accept a username that is not unique" do
-      user = User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")
-      user_two = User.create(username: "Test_User", email: "email_two@email.com", password: "password", location: "Chicago")
-      expect(user_two.id).to eq nil
+      expect(FactoryGirl.build(:user, username: nil)).to_not be_valid
     end
   end
 
@@ -22,9 +20,7 @@ describe User do
     end
 
     it "should not accept an email that is not unique" do
-      user = User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")
-      user_two = User.create(username: "Test_User_Two", email: "email@email.com", password: "password", location: "Chicago")
-      expect(user_two.id).to eq nil
+      expect(FactoryGirl.build(:user, email: nil)).to_not be_valid
     end
 
     it "should only accept an email with proper formatting" do

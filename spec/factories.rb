@@ -11,6 +11,7 @@ FactoryGirl.define do
   factory :question do
     title "What is Travis CI?"
     description "Seriously, what is it?"
+    user
   end
 
   factory :question_comment, class: Comment do
