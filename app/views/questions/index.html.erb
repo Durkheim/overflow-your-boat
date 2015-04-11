@@ -1,0 +1,28 @@
+<h2>Welcome!</h2>
+
+Recently Asked Questions
+<table>
+<% @questions.each do |question|%>
+<tr>
+  <td><b><%= link_to question.title, question_path(question) %></b></td>
+</tr>
+<tr>
+  <td><%= question.description[0..250] %>...</td>
+</tr>
+<tr>
+  <td>created <%= question.created_at %> by <%= question.user.username %></td>
+</tr>
+<% end %>
+</table>
+
+Ask a Question
+<%= form_for(@question) do |f| %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title%>
+
+      <%= f.label :description %>
+      <%= f.text_area :description%>
+
+      <%= f.submit "Submit"%>
+    <% end %>
