@@ -8,6 +8,8 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answers_for_question = Answer.all.where(question_id: @question.id)
+    @answer = Answer.new
   end
 
   def create
