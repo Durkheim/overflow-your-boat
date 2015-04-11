@@ -1,12 +1,14 @@
 require 'rails_helper'
 
+user = FactoryGirl.build(:user)
+question = FactoryGirl.build(:question, user: user)
+question_comment = FactoryGirl.build(:question_comment, commenter: user, response: question)
+answer = FactoryGirl.build(:answer, answerer: user)
+answer_comment = FactoryGirl.build(:answer_comment, commenter: user, response: answer)
+
 describe Comment do
 
   context "when the comment is on a question" do
-    let(:user) {User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")}
-    let(:question) {user.questions.create(title: "What is Travis CI?", description: "Seriously, what is it?")}
-    let(:question_comment) {question.comments.create(message: "This is a comment on a question.", commenter: user)}
-
     it "should have a message" do
       expect(question_comment.message).to eq("This is a comment on a question.")
     end
@@ -21,10 +23,6 @@ describe Comment do
   end
 
     context "when the comment is on an answer" do
-      let(:user) {User.create(username: "Test_User", email: "email@email.com", password: "password", location: "Chicago")}
-      let(:answer) {Answer.create(content: "This is a sample answer! Lots of smart things here!", answerer: user)}
-      let(:answer_comment) {answer.comments.create(message: "This is a comment on an answer.", commenter: user)}
-
       it "should have a message" do
       expect(answer_comment.message).to eq("This is a comment on an answer.")
     end
