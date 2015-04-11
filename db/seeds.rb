@@ -1,7 +1,7 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+User.all.destroy # needed for Heroku
+
+user = User.create(username: "morgsypie", email: "morgan@morgan.com", password: "password", location: "Chicago")
+
+10.times do
+  user.questions.create(title: Faker::Lorem.word, description: Faker::Lorem.paragraph)
+end
