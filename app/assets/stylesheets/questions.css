@@ -3,6 +3,18 @@
   font-size: 32px;
 }
 
+.asker {
+  float: right;
+  margin-bottom: 1em;
+  font-style: italic;
+  color: #A8A8A8;
+}
+
+.asker a {
+  color: #FF9933;
+  text-decoration: none;
+}
+
 .question_comments {
   margin-left: 7em;
   color: #777;
