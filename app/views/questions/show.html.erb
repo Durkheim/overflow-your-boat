@@ -1,13 +1,25 @@
 <b><%= @question.title%></b>
 <%= @question.description %>
 created <%= @question.created_at %> by <%= @question.user.username %>
-last edited at <%= @question.updated_at %>
+last edited at <%= @question.updated_at %><br>
+
+<% @comments_on_question.each do |comment_q| %>
+<%= comment_q.message %>
+<% end %><br>
+
+<%= form_for([@question, @comment]) do |f| %>
+  <%= f.label :comment %>
+  <%= f.text_area :message%><br>
+  <%= f.submit "Submit"%>
+<% end %>
 
 <% @answers_for_question.each do |answer_for_question| %>
+
   <p><%= answer_for_question.content%></p>
   <p><%= answer_for_question.answerer.username%></p>
   <p><%= link_to "edit", edit_question_answer_path(@question,answer_for_question) %></p>
   <p><%= link_to "delete",  question_answer_path(@question,answer_for_question), method: :delete %></p>
+
 <%end%>
 
 Your Answer<br>
@@ -16,8 +28,6 @@ Your Answer<br>
   <%= f.text_area :content%><br>
   <%= f.submit "Submit"%>
 <% end %>
-
-
 
 
 
