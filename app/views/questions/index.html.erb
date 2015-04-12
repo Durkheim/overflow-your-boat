@@ -16,12 +16,12 @@
   <td class="header"><%= link_to question.title, question_path(question) %></td>
 </tr>
 <tr>
-   <td class="answer_count"><p>0<br>answers</p></td>
+   <td class="answer_count"><p><%=question.answers.count%><br>answers</p></td>
   <td><%= question.description[0..500] %>...</td>
 </tr>
 <tr>
   <td class="list_separator"></td>
-  <td class="list_separator created_info">asked <%= question.created_at %> by <%= link_to question.user.username, user_path(question.user)%></td>
+  <td class="list_separator created_info">asked on <%= question.created_at %> by <%= link_to question.user.username, user_path(question.user)%></td>
 </tr>
 <% end %>
 </table>

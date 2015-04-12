@@ -7,10 +7,10 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
     resources :users
     resources :questions, only: [:index, :show, :create, :edit, :update, :destroy] do
+      resources :comments
       resources :answers do
         resources :comments
       end
-      resources :comments
     end
 
   root 'questions#index'
