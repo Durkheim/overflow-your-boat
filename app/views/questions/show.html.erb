@@ -1,45 +1,74 @@
-<b><%= @question.title%></b>
+<div class="question_title"><%= @question.title%></div>
 <%= @question.description %>
 created <%= @question.created_at %> by <%= @question.user.username %>
 last edited at <%= @question.updated_at %><br><br>
-
-<% @comments_on_question.each do |comment_q| %>
-<%= comment_q.message %><br>
-<%= comment_q.created_at %><br>
-<%= comment_q.commenter.username %><br>
-<% end %><br>
-
-<%= form_for([@question, @comment]) do |f| %>
-  <%= f.label :comment %>
-  <%= f.text_area :message%><br>
-  <%= f.submit "Submit"%>
-<% end %>
-
-<% @answers_for_question.each do |answer_for_question| %>
-
-  <p><%= answer_for_question.content%></p>
-  <p><%= answer_for_question.answerer.username%></p>
-
-  <% answer_for_question.comments.each do |comment_a| %>
-  <%= comment_a.message %><br>
-  <%= comment_a.created_at %><br>
-  <%= comment_a.commenter.username %><br>
-  <% end %><br>
-
-  <%= form_for([@question, answer_for_question, @comment]) do |f| %>
-  <%= f.label :comment %>
-  <%= f.text_area :message%><br>
-  <%= f.submit "Submit"%>
+<hr>
+<div class="question_comments">
+  <% @comments_on_question.each do |comment_q| %>
+  <%= comment_q.message %><br>
+  <span class="commenter">
+  <%= comment_q.created_at %> by <%= link_to comment_q.commenter.username, user_path(comment_q.commenter)%>
+  </span>
+  <br><br>
   <% end %>
+</div>
 
-<%end%>
+<div class="add_question_comment_link">
+  <%= link_to "Add Comment", new_question_comment_path(@question) %>
+</div>
 
-Your Answer<br>
-<%= form_for([@question, @answer]) do |f| %>
-  <%= f.label :answer %>
-  <%= f.text_area :content%><br>
-  <%= f.submit "Submit"%>
-<% end %>
+<div class="add_question_comment">
+  <%= form_for([@question, @comment]) do |f| %>
+    <%= f.label :comment, "Add Comment" %><br>
+    <%= f.text_area :message, :cols => "30", :rows => "10" %><br>
+    <%= f.submit "Submit"%>
+  <% end %>
+</div>
+<br><br>
+<span id="answers"><%= @answers_for_question.count %> Answers</span>
+
+<div class="question_answers">
+  <% @answers_for_question.each do |answer_for_question| %>
+<hr>
+    <%= answer_for_question.content%><br>
+    <span class="answerer">
+    answered at <%= answer_for_question.created_at%> by <%= link_to answer_for_question.answerer.username, user_path(answer_for_question.answerer)%>
+    </span>
+    <br><br>
+
+<div class="answer_comments">
+    <% answer_for_question.comments.each do |comment_a| %>
+    <%= comment_a.message %><br>
+    <span class="commenter">
+    <%= comment_a.created_at %> by <%= link_to comment_a.commenter.username, user_path(comment_a.commenter)%></span><br>
+    <% end %><br>
+</div>
+
+<div class="add_answer_comment_link">
+  <%= link_to "Add Comment", new_question_answer_comment_path(@question, answer_for_question) %>
+</div>
+
+<div class="add_answer_comment">
+    <%= form_for([@question, answer_for_question, @comment]) do |f| %>
+    <%= f.label :comment %><br>
+    <%= f.text_area :message, :cols => "30", :rows => "10" %><br>
+    <%= f.submit "Submit"%>
+    <% end %>
+</div>
+
+  <%end%>
+
+</div>
+<br><br>
+
+<div class="add_answer">
+  <%= form_for([@question, @answer]) do |f| %>
+    <%= f.label :answer, "Add Your Answer" %><br><br>
+    <%= f.text_area :content, :cols => "50", :rows => "15" %><br>
+    <%= f.submit "Submit"%>
+  <% end %>
+</div>
+<br>
 
 
 
