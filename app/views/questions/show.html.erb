@@ -1,10 +1,12 @@
 <b><%= @question.title%></b>
 <%= @question.description %>
 created <%= @question.created_at %> by <%= @question.user.username %>
-last edited at <%= @question.updated_at %><br>
+last edited at <%= @question.updated_at %><br><br>
 
 <% @comments_on_question.each do |comment_q| %>
-<%= comment_q.message %>
+<%= comment_q.message %><br>
+<%= comment_q.created_at %><br>
+<%= comment_q.commenter.username %><br>
 <% end %><br>
 
 <%= form_for([@question, @comment]) do |f| %>
@@ -17,14 +19,12 @@ last edited at <%= @question.updated_at %><br>
 
   <p><%= answer_for_question.content%></p>
   <p><%= answer_for_question.answerer.username%></p>
-  <p><%= link_to "edit", edit_question_answer_path(@question,answer_for_question) %></p>
-  <p><%= link_to "delete",  question_answer_path(@question,answer_for_question), method: :delete %></p>
 
 <%end%>
 
 Your Answer<br>
 <%= form_for([@question, @answer]) do |f| %>
-  <%= f.label :content %>
+  <%= f.label :answer %>
   <%= f.text_area :content%><br>
   <%= f.submit "Submit"%>
 <% end %>

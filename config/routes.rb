@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  get 'answercomment/new'
-
-  get 'comments/new'
-
-  get 'comments/create'
-
-  get 'answers/create'
 
   get    'signup'  => 'users#new'
   post   'users'   => 'users#create'
@@ -14,11 +7,9 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
     resources :users
     resources :questions, only: [:index, :show, :create, :edit, :update, :destroy] do
-      resources :answers
-      resources :comments
-    end
-
-    resources :answers do
+      resources :answers do
+        resources :comments
+      end
       resources :comments
     end
 
