@@ -1,20 +1,67 @@
-Hi, <%= current_user.username%>!
+<% if current_user %>
+<div class="page_header">Hi, <%= current_user.username%>!</div>
+<br>
 
-Your Questions
+
+<div class="page_header">Your Questions:</div>
+<br>
+<%if current_user.questions.empty? %>
+<i>You haven't asked any questions yet.</i>
+<%else%>
 <table>
-<% current_user.questions.each do |question|%>
-<tr>
-  <td><b><%= link_to question.title, question_path(question) %></b></td>
-</tr>
-<tr>
-  <td><%= question.description[0..250] %>...</td>
-</tr>
-<tr>
-  <td>last updated <%= question.updated_at %></td>
-</tr>
-<tr>
-  <td><%= link_to "edit", edit_question_path(question) %></td>
-  <td><%= link_to "delete",  question_path(question), method: :delete %></td>
-</tr>
-<% end %>
+  <% current_user.questions.each do |question|%>
+  <tr>
+    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td class="header"><%= link_to question.title, question_path(question) %></td>
+  </tr>
+  <tr>
+    <td class="answer_count"><p>0<br>answers</p></td>
+    <td><%= question.description[0..500] %>...</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="created_info"><p>originally asked <%= question.created_at %><br>last updated <%= question.updated_at%></p></td>
+  </tr>
+  <tr>
+    <td class="list_separator"></td>
+    <td class="list_separator"><%= link_to "edit", edit_question_path(question) %> | <%= link_to "delete",  question_path(question), method: :delete %></td>
+  </tr>
+  <% end %>
 </table>
+<%end%>
+<br>
+
+<div class="page_header">Your Answers:</div>
+<br>
+<%if current_user.questions.empty? %>
+<i>You haven't asked any questions yet.</i>
+<%else%>
+<table>
+  <% current_user.questions.each do |question|%>
+  <tr>
+    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td class="header"><%= link_to question.title, question_path(question) %></td>
+  </tr>
+  <tr>
+    <td class="answer_count"><p>0<br>answers</p></td>
+    <td><%= question.description[0..500] %>...</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="created_info"><p>originally asked <%= question.created_at %><br>last updated <%= question.updated_at%></p></td>
+  </tr>
+  <tr>
+    <td class="list_separator"></td>
+    <td class="list_separator"><%= link_to "edit", edit_question_path(question) %> | <%= link_to "delete",  question_path(question), method: :delete %></td>
+  </tr>
+  <% end %>
+</table>
+<%end%>
+<br>
+
+
+
+
+<% else %>
+
+<% end %>
