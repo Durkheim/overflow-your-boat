@@ -12,12 +12,11 @@ class CommentsController < ApplicationController
       redirect_to @question
     end
   end
-end
 
 def edit
   if current_user
     @question = Question.find(params[:question_id])
-    if params[:answer_id]
+    if params[:answer_id] != nil
       @answer = Answer.find(params[:answer_id])
       @comment = @answer.comments.find(params[:id])
     else
@@ -49,11 +48,18 @@ def update
 end
 
 def destroy
+  @question = Question.find(params[:question_id])
   if current_user
-    @question = Question.find(params[:question_id])
-    @answer = @question.answers.find(params[:id])
-    @answer.destroy
-    redirect_to @question
+    if params[:answer_id] != nil
+      @answer = @question.answers.find(params[:answer_id])
+      @comment = @answer.comments.find(params[:id])
+      @comment.destroy
+      redirect_to @question
+    else
+      @comment = @question.comments.find(params[:id])
+      @comment.destroy
+      redirect_to @question
+    end
   else
     @question = Question.find(params[:question_id])
     flash[:failure] = "Must be logged in to perform this action"
@@ -65,6 +71,7 @@ end
 
 private
 
-def comment_params
-  params.require(:comment).permit(:message)
+  def comment_params
+    params.require(:comment).permit(:message)
+  end
 end

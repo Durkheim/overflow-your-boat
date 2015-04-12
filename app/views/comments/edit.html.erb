@@ -1,3 +1,5 @@
+<h2> Edit </h2>
+
 <%if @answer%>
  <%= form_for ([@question, @answer, @comment]) do |f| %>
     <%= f.label :comment %>
@@ -11,4 +13,5 @@
     <%= f.submit "Submit"%>
   <% end %>
 <%end%>
+
 

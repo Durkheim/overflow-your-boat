@@ -2,48 +2,68 @@ Hi, <%= current_user.username%>!
 
 Your Questions
 <table>
-<% current_user.questions.each do |question|%>
-<tr>
-  <td><b><%= link_to question.title, question_path(question) %></b></td>
-</tr>
-<tr>
-  <td><%= question.description[0..250] %>...</td>
-</tr>
-<tr>
-  <td>last updated <%= question.updated_at %></td>
-</tr>
-<tr>
-  <td><%= link_to "edit", edit_question_path(question) %></td>
-  <td><%= link_to "delete",  question_path(question), method: :delete %></td>
-</tr>
-<% end %>
+  <% current_user.questions.each do |question|%>
+  <tr>
+    <td><b><%= link_to question.title, question_path(question) %></b></td>
+  </tr>
+  <tr>
+    <td><%= question.description[0..250] %>...</td>
+  </tr>
+  <tr>
+    <td>last updated <%= question.updated_at %></td>
+  </tr>
+  <tr>
+    <td><%= link_to "edit", edit_question_path(question) %></td>
+    <td><%= link_to "delete",  question_path(question), method: :delete %></td>
+  </tr>
+  <% end %>
 
 </table><br><br>
 
 Your Answers
 <table>
-<% current_user.answers_provided.each do |answer|%>
-<% question = answer.question %>
-<tr>
-  <td><b><%= link_to answer.content, question_path(question)%></b></td>
-</tr>
-<tr>
-  <td><%= link_to "edit", edit_question_answer_path(question, answer) %></td>
-  <td><%= link_to "delete",  question_answer_path(question, answer), method: :delete %></td>
-</tr>
-<%end%>
+  <% current_user.answers_provided.each do |answer|%>
+  <% question = answer.question %>
+  <tr>
+    <td><b><%= link_to answer.content, question_path(question)%></b></td>
+  </tr>
+  <tr>
+    <td><%= link_to "edit", edit_question_answer_path(question, answer) %></td>
+    <td><%= link_to "delete",  question_answer_path(question, answer), method: :delete %></td>
+  </tr>
+  <%end%>
 </table><br><br>
 
 Comments
 <table>
-  <% current_user.comments_provided.each do |comment| %>
-  <% question = comment.response %>
+  <% question_comments = current_user.comments_provided.where(response_type: "Question")%>
+  <% question_comments.each do |q_comment| %>
+  <% question = q_comment.response %>
   <tr>
-    <td><b><%= link_to comment.message, question_path(question)%></td>
+    <td><b><%= link_to q_comment.message, question_path(question)%></td>
   </tr>
   <tr>
-    <td><%= link_to "edit", edit_question_comment_path(question, comment) %></td>
-    <td><%= link_to "delete",  question_comment_path(question, comment), method: :delete %></td>
-</tr>
-<%end%>
+    <td><%= link_to "edit", edit_question_comment_path(question, q_comment) %></td>
+    <td><%= link_to "delete",  question_comment_path(question, q_comment), method: :delete %></td>
+  </tr>
+  <%end%>
 </table>
+
+<table>
+ <% answer_comments = current_user.comments_provided.where(response_type: "Answer")%>
+ <% answer_comments.each do |a_comment| %>
+ <% answer = a_comment.response %>
+ <% question = answer.question %>
+  <tr>
+    <td><b><%= link_to a_comment.message, question_path(question)%></td>
+  </tr>
+  <tr>
+    <td><%= link_to "edit", edit_question_answer_comment_path(question, answer, a_comment) %></td>
+    <td><%= link_to "delete",  question_answer_comment_path(question, answer, a_comment), method: :delete %></td>
+  </tr>
+  <%end%>
+</table>
+
+
+
+
