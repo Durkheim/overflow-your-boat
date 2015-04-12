@@ -25,15 +25,18 @@
 </tr>
 <% end %>
 </table>
-
-Ask a Question
+<br><br>
+<div class="ask_question">
+<span id="ask">Ask a Question</span><br><br>
 <%= form_for(@question) do |f| %>
 
-      <%= f.label :title %>
-      <%= f.text_field :title%>
+      <%= f.label :title, "What is your question?" %><br>
+      <%= f.text_area :title, :cols => "50", :rows => "1" %><br><br>
 
-      <%= f.label :description %>
-      <%= f.text_area :description%>
+      <%= f.label :description, "Describe your question here:" %><br>
+      <%= f.text_area :description, :cols => "50", :rows => "10" %><br><br>
 
       <%= f.submit "Submit"%>
     <% end %>
+</div>
+<br><br>
