@@ -40,7 +40,7 @@ last edited at <%= @question.updated_at %><br><br>
     <% answer_for_question.comments.each do |comment_a| %>
     <%= comment_a.message %><br>
     <span class="commenter">
-    <%= comment_a.created_at %> by <%= comment_a.commenter.username %></span><br>
+    <%= comment_a.created_at %> by <%= link_to comment_a.commenter.username, user_path(comment_a.commenter)%></span><br>
     <% end %><br>
 </div>
 
@@ -48,13 +48,13 @@ last edited at <%= @question.updated_at %><br><br>
   <%= link_to "Add Comment", new_question_answer_comment_path(@question, answer_for_question) %>
 </div>
 
-  <div class="add_answer_comment">
-      <%= form_for([@question, answer_for_question, @comment]) do |f| %>
-      <%= f.label :comment %><br>
-      <%= f.text_area :message, :cols => "30", :rows => "10" %><br>
-      <%= f.submit "Submit"%>
-      <% end %>
-  </div>
+<div class="add_answer_comment">
+    <%= form_for([@question, answer_for_question, @comment]) do |f| %>
+    <%= f.label :comment %><br>
+    <%= f.text_area :message, :cols => "30", :rows => "10" %><br>
+    <%= f.submit "Submit"%>
+    <% end %>
+</div>
 
   <%end%>
 

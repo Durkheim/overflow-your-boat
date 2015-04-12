@@ -13,8 +13,9 @@ $(document).ready(function() {
 
   answerCommentButton.on("click", function(event) {
     event.preventDefault();
-    answerCommentButton.hide();
-    $(".add_answer_comment").show();
+    var button = $(this);
+    button.hide();
+    button.next(".add_answer_comment").show();
 
   });
 });
