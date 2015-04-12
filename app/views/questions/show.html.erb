@@ -2,6 +2,25 @@
 <%= @question.description %>
 created <%= @question.created_at %> by <%= @question.user.username %>
 last edited at <%= @question.updated_at %><br><br>
+
+<%= form_for ([@question, @vote]) do |f| %>
+  <%= f.label :up_vote %>
+  <%= f.radio_button :like, true, :value => true%><br>
+  <%= f.label :down_vote %>
+  <%= f.radio_button :like, false, :value => false%><br>
+  <%= f.submit "Submit"%>
+<%end%>
+
+<p>Up Votes</p>
+<%= @votes_on_question.where(like: true).count%>
+
+<p>Total Votes</p>
+
+
+
+<p>Down Votes</p>
+  <%= @votes_on_question.where(like: false).count%>
+
 <hr>
 <div class="question_comments">
   <% @comments_on_question.each do |comment_q| %>
