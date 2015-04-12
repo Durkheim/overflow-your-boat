@@ -12,7 +12,6 @@ class CommentsController < ApplicationController
       redirect_to @question
     end
   end
-end
 
 def edit
   if current_user
@@ -65,6 +64,7 @@ end
 
 private
 
-def comment_params
-  params.require(:comment).permit(:message)
+  def comment_params
+    params.require(:comment).permit(:message)
+  end
 end
