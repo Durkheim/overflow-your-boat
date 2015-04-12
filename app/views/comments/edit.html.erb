@@ -1,4 +1,17 @@
-<h1><%= @question.title %></h1>
+<h2> Edit </h2>
 
+<%if @answer%>
+ <%= form_for ([@question, @answer, @comment]) do |f| %>
+    <%= f.label :comment %>
+    <%= f.text_area :message%><br>
+    <%= f.submit "Submit"%>
+  <% end %>
+<%else%>
+  <%= form_for ([@question, @comment]) do |f| %>
+    <%= f.label :comment %>
+    <%= f.text_area :message%><br>
+    <%= f.submit "Submit"%>
+  <% end %>
+<%end%>
 
 
