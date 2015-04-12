@@ -7,21 +7,34 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <header>
-    <div class="sitename"><%= link_to image_tag("oyb_logo.png", alt: "Overflow Your Boat", width: "500"), questions_path %> </div>
-    <div class="nav">
-<% if current_user %>
-  Signed in as <%= link_to current_user.username, user_path(current_user) %> | <%= link_to "Logout", '/logout', {method: :delete} %>
-<% else %>
-  <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
-<% end %>
-</div>
-<hr>
-  </header>
-<% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
+  
+    <div class="user_nav">
+      <% if current_user %>
+      <%= link_to "Profile", user_path(current_user) %>  <%= link_to "Logout", '/logout', {method: :delete} %>
+      <% else %>
+      <%= link_to 'Login', '/login' %>  <%= link_to 'Signup', '/signup' %>
       <% end %>
-<%= yield %>
+    </div>
+<header>
+    <div class="sitename">
+      <%= link_to image_tag("oyb_logo.png", alt: "Overflow Your Boat", width: "500"), questions_path %> 
+    </div><br>
+    <div class="main_nav">
+      <%= link_to "Questions", questions_path %>  
+      <%= link_to "Unanswered", questions_path %> 
+      <%= link_to "Add Question", questions_path %>
+    </div>
+    <br>
+  
 
+
+
+  </header>
+  <% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div>
+  <% end %>
+  <div class="container">
+  <%= yield %>
+</div>
 </body>
 </html>

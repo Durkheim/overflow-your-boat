@@ -1,16 +1,27 @@
-<h2>Welcome!</h2>
 
-Recently Asked Questions
+
+<div class="page_header">All Questions</div>
+    <div class="page_options">
+      <!-- <h2>Recently Asked Questions</h2> -->
+      <%= link_to "newest", questions_path %>  
+      <%= link_to "votes", questions_path %> 
+      <%= link_to "trending", questions_path %> 
+      <%= link_to "unanswered", questions_path %>
+    </div>
+    <hr>
 <table>
 <% @questions.each do |question|%>
 <tr>
-  <td><b><%= link_to question.title, question_path(question) %></b></td>
+  <td class="vote_count"><p>0 <br>votes</p></td>
+  <td class="header"><%= link_to question.title, question_path(question) %></td>
 </tr>
 <tr>
-  <td><%= question.description[0..250] %>...</td>
+   <td class="answer_count">0 answers</td>
+  <td><%= question.description[0..500] %>...</td>
 </tr>
 <tr>
-  <td>created <%= question.created_at %> by <%= question.user.username %></td>
+  <td class="list_separator"></td>
+  <td class="list_separator created_info">asked <%= question.created_at %> by <%= link_to question.user.username, user_path(question.user)%></td>
 </tr>
 <% end %>
 </table>

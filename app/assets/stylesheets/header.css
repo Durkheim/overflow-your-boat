@@ -1,13 +1,85 @@
 header {
-  padding: .5em;
+  padding: 0em 1.5em 0em 1.5em;
+  margin: 0em 2em 0 2em;
 }
+
+.user_nav { 
+  text-align: right;
+  background-color: black;
+  width: 100%;
+  font-size: 14px;
+  color: white;
+
+}
+
+.user_nav a:link {
+  display: inline-block;
+  width: 4em;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  padding: 12px 20px 12px 20px;
+    margin-right: 1.25em;
+}
+
+.user_nav a:visited {
+  display: inline-block;
+  width: 4em;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  padding: 12px 20px 12px 20px;
+}
+
+.user_nav a:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #3300CC;
+  /*background-color: darkslategray;*/
+}
+
 
 .sitename {
   display: inline-block;
-  font-size: 2em;
+  position: relative;
+  width: 40%;
+  margin-top: .5em;
+
 }
 
-.nav {
-  display: inline-block;
-  float: right;
+.main_nav {
+  position: absolute;
+  right: 2.75em;
+  top: 5.2em;
+  font-size: 14px;
+
 }
+
+.main_nav a:link {
+  width: 4em;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  padding: 6px 10px 6px 10px;
+  margin: .25em;
+  /*border-radius: 10px;*/
+  background-color: #3300CC;
+}
+
+.main_nav a:visited {
+  width: 4em;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  padding: 6px 10px 6px 10px;
+  background-color: #3300CC;
+}
+
+
+.main_nav a:hover {
+  text-decoration: none;
+  background-color: #6633FF;
+}
+
+
+
