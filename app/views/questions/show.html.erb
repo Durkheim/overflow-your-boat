@@ -20,6 +20,18 @@ last edited at <%= @question.updated_at %><br><br>
   <p><%= answer_for_question.content%></p>
   <p><%= answer_for_question.answerer.username%></p>
 
+  <% answer_for_question.comments.each do |comment_a| %>
+  <%= comment_a.message %><br>
+  <%= comment_a.created_at %><br>
+  <%= comment_a.commenter.username %><br>
+  <% end %><br>
+
+  <%= form_for([@question, answer_for_question, @comment]) do |f| %>
+  <%= f.label :comment %>
+  <%= f.text_area :message%><br>
+  <%= f.submit "Submit"%>
+  <% end %>
+
 <%end%>
 
 Your Answer<br>
