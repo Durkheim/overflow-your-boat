@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
-  get 'answers/create'
 
   get    'signup'  => 'users#new'
   post   'users'   => 'users#create'
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-  resources :users
-  resources :questions, only: [:index, :show, :create, :edit, :update, :destroy] do
-    resources :answers
-  end
+    resources :users
+    resources :questions, only: [:index, :show, :create, :edit, :update, :destroy] do
+      resources :answers do
+        resources :comments
+      end
+      resources :comments
+    end
 
   root 'questions#index'
   # The priority is based upon order of creation: first created -> highest priority.

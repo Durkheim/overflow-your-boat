@@ -10,6 +10,11 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @answers_for_question = Answer.all.where(question_id: @question.id)
     @answer = Answer.new
+    @comment = Comment.new
+    @comments_on_question = @question.comments
+
+
+    # @comments_on_answer
   end
 
   def create
