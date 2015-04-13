@@ -1,0 +1,44 @@
+
+
+<div class="page_header">All Questions</div>
+    <div class="page_options">
+      <!-- <h2>Recently Asked Questions</h2> -->
+      <%= link_to "newest", questions_path(:sort => "newest") %>
+      <%= link_to "votes", questions_path %>
+      <%= link_to "trending", questions_path %>
+      <%= link_to "unanswered", questions_path %>
+    </div>
+    <hr>
+<div class="questions">
+<table>
+<% @questions.each do |question|%>
+<tr>
+  <td class="vote_count"><p><%=question.votes.where(like: true).count - question.votes.where(like: false).count%><br>votes</p></td>
+  <td class="header"><%= link_to question.title, question_path(question) %></td>
+</tr>
+<tr>
+   <td class="answer_count"><p><%=question.answers.count%><br>answers</p></td>
+  <td><%= question.description[0..500] %>...</td>
+</tr>
+<tr>
+  <td class="list_separator"></td>
+  <td class="list_separator created_info">asked on <%= question.created_at %> by <%= link_to question.user.username, user_path(question.user)%></td>
+</tr>
+<% end %>
+</table>
+</div>
+<br><br>
+<div id="ask_question">
+<span id="ask">Ask a Question</span><br><br>
+<%= form_for(@question) do |f| %>
+
+      <%= f.label :title, "What is your question?" %><br>
+      <%= f.text_area :title, :cols => "50", :rows => "1" %><br><br>
+
+      <%= f.label :description, "Describe your question here:" %><br>
+      <%= f.text_area :description, :cols => "50", :rows => "10" %><br><br>
+
+      <%= f.submit "Submit"%>
+    <% end %>
+</div>
+<br><br>
