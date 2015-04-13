@@ -14,12 +14,8 @@ last edited at <%= @question.updated_at %><br><br>
 <p>Up Votes</p>
 <%= @votes_on_question.where(like: true).count%>
 
-<p>Total Votes</p>
-
-
-
 <p>Down Votes</p>
-  <%= @votes_on_question.where(like: false).count%>
+<%= @votes_on_question.where(like: false).count%>
 
 <hr>
 <div class="question_comments">
@@ -54,6 +50,20 @@ last edited at <%= @question.updated_at %><br><br>
     answered at <%= answer_for_question.created_at%> by <%= link_to answer_for_question.answerer.username, user_path(answer_for_question.answerer)%>
     </span>
     <br><br>
+
+    <p>Up Votes</p>
+    <%= answer_for_question.votes.where(like: true).count%>
+
+    <p>Down Votes</p>
+    <%= answer_for_question.votes.where(like: false).count%>
+
+    <%= form_for ([@question, answer_for_question, @vote]) do |f| %>
+      <%= f.label :up_vote %>
+      <%= f.radio_button :like, true, :value => true%><br>
+      <%= f.label :down_vote %>
+      <%= f.radio_button :like, false, :value => false%><br>
+      <%= f.submit "Submit"%>
+    <%end%>
 
 <div class="answer_comments">
     <% answer_for_question.comments.each do |comment_a| %>

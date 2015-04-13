@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
     @votes_on_question = @question.votes
 
 
+
     # @comments_on_answer
   end
 
