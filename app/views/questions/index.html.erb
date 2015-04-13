@@ -13,7 +13,7 @@
 <table>
 <% @questions.each do |question|%>
 <tr>
-  <td class="vote_count"><p>0 <br>votes</p></td>
+  <td class="vote_count"><p><%=question.question_vote_total%><br>votes</p></td>
   <td class="header"><%= link_to question.title, question_path(question) %></td>
 </tr>
 <tr>

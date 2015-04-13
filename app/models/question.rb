@@ -8,4 +8,9 @@ class Question < ActiveRecord::Base
     Question.all.sort_by{|question| question.created_at}.reverse
   end
 
+  def question_vote_total
+    dislike = self.votes.where(like: false).count
+    self.votes.count - dislike
+  end
+
 end
