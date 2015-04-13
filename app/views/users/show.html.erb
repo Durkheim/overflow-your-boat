@@ -10,11 +10,11 @@
 <table>
   <% current_user.questions.each do |question|%>
   <tr>
-    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td class="vote_count"><p><%= question.votes.where(like: true).count - question.votes.where(like: false).count%><br>votes</p></td>
     <td class="header"><%= link_to question.title, question_path(question) %></td>
   </tr>
   <tr>
-    <td class="answer_count"><p>0<br>answers</p></td>
+    <td class="answer_count"><p><%=question.answers.count%><br>answers</p></td>
     <td><%= question.description[0..500] %>...</td>
   </tr>
   <tr>
@@ -45,7 +45,7 @@
     </td>
   </tr>
   <tr>
-    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td class="vote_count"><p><%= question.votes.where(like: true).count - question.votes.where(like: false).count%><br>votes</p></td>
     <td><h4>Your answer:</h4><%= answer.content %></td>
   </tr>
   <tr>
@@ -145,11 +145,11 @@
 <table>
   <% @user.questions.each do |question|%>
   <tr>
-    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td class="vote_count"><p><%= question.votes.where(like: true).count - question.votes.where(like: false).count%><br>votes</p></td>
     <td class="header"><%= link_to question.title, question_path(question) %></td>
   </tr>
   <tr>
-    <td class="answer_count"><p>0<br>answers</p></td>
+    <td class="answer_count"><p><%=question.answers.count%><br>answers</p></td>
     <td><%= question.description[0..500] %>...</td>
   </tr>
   <tr>
@@ -205,7 +205,7 @@
     </td>
   </tr>
   <tr>
-    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td class="vote_count"><p><br>votes</p></td>
     <td><h4><%= @user.username%>'s comment:</h4><%= q_comment.message %></td>
   </tr>
   <tr>
