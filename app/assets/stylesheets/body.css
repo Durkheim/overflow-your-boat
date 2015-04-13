@@ -100,11 +100,22 @@ td {
   font-style: italic;
   color: #777;
 }
+
 .created_info a {
   text-align: right;
   font-style: italic;
   color: #FF9933;
   text-decoration: none;
+  font-weight: bold;
+}
+
+.ask_question {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#ask {
+  font-size: 18px;
   font-weight: bold;
 }
 

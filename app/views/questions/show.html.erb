@@ -1,7 +1,11 @@
 <div class="question_title"><%= @question.title%></div>
-<%= @question.description %>
-created <%= @question.created_at %> by <%= @question.user.username %>
-last edited at <%= @question.updated_at %><br><br>
+
+<%= @question.description %><br>
+<span class="asker">
+created on <%= @question.created_at %> by <%= link_to @question.user.username, user_path(@question.user)%><br>
+last edited at <%= @question.updated_at %>
+</span>
+<br><br>
 
 <%= form_for ([@question, @vote]) do |f| %>
   <%= f.label :up_vote %>
