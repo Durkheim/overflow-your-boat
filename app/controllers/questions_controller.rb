@@ -12,6 +12,9 @@ class QuestionsController < ApplicationController
     @answer = Answer.new
     @comment = Comment.new
     @comments_on_question = @question.comments
+    @vote = Vote.new
+    @votes_on_question = @question.votes
+
 
 
     # @comments_on_answer

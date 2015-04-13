@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     resources :users
     resources :questions, only: [:index, :show, :create, :edit, :update, :destroy] do
       resources :comments
+      resources :votes
       resources :answers do
+        resources :votes
         resources :comments
       end
     end
