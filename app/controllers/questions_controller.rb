@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
+    @questions = @questions.sort_newest if params[:sort] == "newest"
     @question = Question.new
 
   end
@@ -18,11 +19,16 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = current_user.questions.new(question_params)
-    if @question.save
-      redirect_to @question
+    if current_user
+      @question = current_user.questions.new(question_params)
+      if @question.save
+        redirect_to @question
+      else
+        render "index"
+      end
     else
-      render "index"
+      flash[:failure] = "Must be logged in to perform this action"
+      redirect_to questions_path
     end
   end
 
