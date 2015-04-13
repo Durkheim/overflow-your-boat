@@ -1,7 +1,6 @@
-<% if current_user %>
-<div class="page_header">Hi, <%= current_user.username%>!</div>
+<% if current_user == @user %>
+<h2>Hi, <%= current_user.username%>!</h2>
 <br>
-
 
 <div class="page_header">Your Questions:</div>
 <br>
@@ -31,57 +30,226 @@
 <%end%>
 <br>
 
-
-Your Answers
+<div class="page_header">Your Answers:</div>
+<br>
+<%if current_user.answers_provided.empty? %>
+<i>You haven't answered any questions yet.</i>
+<%else%>
 <table>
   <% current_user.answers_provided.each do |answer|%>
-  <% question = answer.question %>
+    <% question = answer.question %>
   <tr>
-    <td><b><%= link_to answer.content, question_path(question)%></b></td>
+    <td></td>
+    <td><span class ="header"><%= link_to question.title, question_path(question) %></span><br>
+      asked by <%= link_to question.user.username, user_path(question.user)%>
+    </td>
   </tr>
   <tr>
-    <td><%= link_to "edit", edit_question_answer_path(question, answer) %></td>
-    <td><%= link_to "delete",  question_answer_path(question, answer), method: :delete %></td>
+    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td><h4>Your answer:</h4><%= answer.content %></td>
   </tr>
-  <%end%>
-</table><br><br>
+  <tr>
+    <td></td>
+    <td class="created_info">last updated <%= answer.updated_at%></p></td>
+  </tr>
+  <tr>
+    <td class="list_separator"></td>
+    <td class="list_separator"><%= link_to "edit", edit_question_answer_path(question, answer) %> | <%= link_to "delete",  question_answer_path(question, answer), method: :delete %></td>
+  </tr>
+  <% end %>
+</table>
+<%end%>
+<br>
 
-Comments
+
+<div class="page_header">Your Comments on Questions:</div>
+<br>
+<% question_comments = current_user.comments_provided.where(response_type: "Question")%>
+<%if question_comments.empty? %>
+<i>You haven't commented on any questions yet.</i>
+<%else%>
 <table>
-  <% question_comments = current_user.comments_provided.where(response_type: "Question")%>
   <% question_comments.each do |q_comment| %>
   <% question = q_comment.response %>
   <tr>
-    <td><b><%= link_to q_comment.message, question_path(question)%></td>
+    <td></td>
+    <td><span class ="header"><%= link_to question.title, question_path(question) %></span><br>
+      asked by <%= link_to question.user.username, user_path(question.user)%>
+    </td>
   </tr>
   <tr>
-    <td><%= link_to "edit", edit_question_comment_path(question, q_comment) %></td>
-    <td><%= link_to "delete",  question_comment_path(question, q_comment), method: :delete %></td>
+    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td><h4>Your comment:</h4><%= q_comment.message %></td>
   </tr>
-  <%end%>
+  <tr>
+    <td></td>
+    <td class="created_info">last updated <%= q_comment.updated_at%></p></td>
+  </tr>
+  <tr>
+    <td class="list_separator"></td>
+    <td class="list_separator"><%= link_to "edit", edit_question_comment_path(question, q_comment) %> | <%= link_to "delete",  question_comment_path(question, q_comment), method: :delete %></td>
+  </tr>
+  <% end %>
 </table>
+<%end%>
+<br>
 
+<div class="page_header">Your Comments on Answers:</div>
+<br>
+<% answer_comments = current_user.comments_provided.where(response_type: "Answer")%>
+<%if answer_comments.empty? %>
+<i>You haven't commented on any answers yet.</i>
+<%else%>
 <table>
- <% answer_comments = current_user.comments_provided.where(response_type: "Answer")%>
- <% answer_comments.each do |a_comment| %>
- <% answer = a_comment.response %>
- <% question = answer.question %>
+  <% answer_comments.each do |a_comment| %>
+   <% answer = a_comment.response %>
+  <% question = answer.question %>
   <tr>
-    <td><b><%= link_to a_comment.message, question_path(question)%></td>
+    <td></td>
+    <td><span class ="header"><%= link_to question.title, question_path(question) %></span><br>
+      asked by <%= link_to question.user.username, user_path(question.user)%>
+    </td>
   </tr>
   <tr>
-    <td><%= link_to "edit", edit_question_answer_comment_path(question, answer, a_comment) %></td>
-    <td><%= link_to "delete",  question_answer_comment_path(question, answer, a_comment), method: :delete %></td>
+    <td ></td>
+    <td><h4><%= answer.answerer.username%>'s answer:</h4><%= answer.content %></td>
   </tr>
-  <%end%>
+  <tr>
+    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td><h4>Your comment:</h4><%= a_comment.message %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="created_info">last updated <%= a_comment.updated_at%></p></td>
+  </tr>
+  <tr>
+    <td class="list_separator"></td>
+    <td class="list_separator"><%= link_to "edit", edit_question_answer_comment_path(question, answer, a_comment)  %> | <%= link_to "delete",  question_answer_comment_path(question, answer, a_comment), method: :delete %></td>
+  </tr>
+  <% end %>
 </table>
-
-
-
+<%end%>
+<br>
 
 
 
 <% else %>
+<h2><%= @user.username%>'s Profile</h2>
+<br>
 
+<div class="page_header"><%= @user.username%>'s Questions:</div>
+<br>
+<%if @user.questions.empty? %>
+<i><%= @user.username%> hasn't asked any questions yet.</i>
+<%else%>
+<table>
+  <% @user.questions.each do |question|%>
+  <tr>
+    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td class="header"><%= link_to question.title, question_path(question) %></td>
+  </tr>
+  <tr>
+    <td class="answer_count"><p>0<br>answers</p></td>
+    <td><%= question.description[0..500] %>...</td>
+  </tr>
+  <tr>
+    <td class="list_separator"></td>
+    <td class="list_separator created_info"><p>originally asked <%= question.created_at %><br>last updated <%= question.updated_at%></p></td>
+  </tr>
+  <% end %>
+</table>
+<%end%>
+<br>
+
+<div class="page_header"><%= @user.username%>'s Answers:</div>
+<br>
+<%if @user.answers_provided.empty? %>
+<i><%= @user.username%> hasn't answered any questions yet.</i>
+<%else%>
+<table>
+  <% @user.answers_provided.each do |answer|%>
+    <% question = answer.question %>
+  <tr>
+    <td></td>
+    <td><span class ="header"><%= link_to question.title, question_path(question) %></span><br>
+      asked by <%= link_to question.user.username, user_path(question.user)%>
+    </td>
+  </tr>
+  <tr>
+    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td><h4><%= @user.username%>'s answer:</h4><%= answer.content %></td>
+  </tr>
+  <tr>
+    <td class="list_separator"></td>
+    <td class="list_separator created_info">last updated <%= answer.updated_at%></p></td>
+  </tr>
+  <% end %>
+</table>
+<%end%>
+<br>
+
+
+<div class="page_header"><%= @user.username%>'s Comments on Questions:</div>
+<br>
+<% question_comments = @user.comments_provided.where(response_type: "Question")%>
+<%if question_comments.empty? %>
+<i><%= @user.username%> hasn't commented on any questions yet.</i>
+<%else%>
+<table>
+  <% question_comments.each do |q_comment| %>
+  <% question = q_comment.response %>
+  <tr>
+    <td></td>
+    <td><span class ="header"><%= link_to question.title, question_path(question) %></span><br>
+      asked by <%= link_to question.user.username, user_path(question.user)%>
+    </td>
+  </tr>
+  <tr>
+    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td><h4><%= @user.username%>'s comment:</h4><%= q_comment.message %></td>
+  </tr>
+  <tr>
+    <td class="list_separator"></td>
+    <td class="list_separator created_info">last updated <%= q_comment.updated_at%></p></td>
+  </tr>
+  <% end %>
+</table>
+<%end%>
+<br>
+
+<div class="page_header"><%= @user.username%>'s Comments on Answers:</div>
+<br>
+<% answer_comments = @user.comments_provided.where(response_type: "Answer")%>
+<%if answer_comments.empty? %>
+<i><%= @user.username%> hasn't commented on any answers yet.</i>
+<%else%>
+<table>
+  <% answer_comments.each do |a_comment| %>
+   <% answer = a_comment.response %>
+  <% question = answer.question %>
+  <tr>
+    <td></td>
+    <td><span class ="header"><%= link_to question.title, question_path(question) %></span><br>
+      asked by <%= link_to question.user.username, user_path(question.user)%>
+    </td>
+  </tr>
+  <tr>
+    <td ></td>
+    <td><h4><%= answer.answerer.username%>'s answer:</h4><%= answer.content %></td>
+  </tr>
+  <tr>
+    <td class="vote_count"><p>0 <br>votes</p></td>
+    <td><h4><%= @user.username%>'s comment:</h4><%= a_comment.message %></td>
+  </tr>
+  <tr>
+    <td class="list_separator"></td>
+    <td class="list_separator created_info">last updated <%= a_comment.updated_at%></p></td>
+  </tr>
+  <% end %>
+</table>
+<%end%>
+<br>
 <% end %>
+<br>
+<br>
 
