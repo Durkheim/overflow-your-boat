@@ -3,4 +3,9 @@ class Question < ActiveRecord::Base
   has_many :answers
   has_many :comments, as: :response
   has_many :votes, as: :point
+
+  def self.sort_newest
+    Question.all.sort_by{|question| question.created_at}.reverse
+  end
+
 end
