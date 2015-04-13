@@ -1,25 +1,22 @@
+<div class="votes">
+<%= link_to image_tag("upvote.png", width: "50"), question_votes_path(@question, :like => "true"), method: :post %><br>
+  Total Votes
+<%= @votes_on_question.where(like: true).count - @votes_on_question.where(like: false).count%><br>
+<%= link_to image_tag("downvote.png", width: "50"), question_votes_path(@question, :like => "false"), method: :post %>
+</div>
+
 <div class="question_title"><%= @question.title%></div>
 
-<%= @question.description %><br>
+<br><br><br><br><br>
+
+<%= @question.description %>
+
 <span class="asker">
 created on <%= @question.created_at %> by <%= link_to @question.user.username, user_path(@question.user)%><br>
 last edited at <%= @question.updated_at %>
 </span>
 <br><br>
 
-<%= form_for ([@question, @vote]) do |f| %>
-  <%= f.label :up_vote %>
-  <%= f.radio_button :like, true, :value => true%><br>
-  <%= f.label :down_vote %>
-  <%= f.radio_button :like, false, :value => false%><br>
-  <%= f.submit "Submit"%>
-<%end%>
-
-<p>Up Votes</p>
-<%= @votes_on_question.where(like: true).count%>
-
-<p>Down Votes</p>
-<%= @votes_on_question.where(like: false).count%>
 
 <hr>
 <div class="question_comments">
@@ -49,25 +46,17 @@ last edited at <%= @question.updated_at %>
 <div class="question_answers">
   <% @answers_for_question.each do |answer_for_question| %>
 <hr>
+
+<%= link_to image_tag("upvote.png", width: "50"), question_answer_votes_path(@question, answer_for_question, :like => "true"), method: :post %><br>
+  Total Votes
+<%= answer_for_question.votes.where(like: true).count - answer_for_question.votes.where(like: false).count%><br>
+<%= link_to image_tag("downvote.png", width: "50"), question_answer_votes_path(@question, answer_for_question, :like => "false"), method: :post %><br>
+
     <%= answer_for_question.content%><br>
     <span class="answerer">
     answered at <%= answer_for_question.created_at%> by <%= link_to answer_for_question.answerer.username, user_path(answer_for_question.answerer)%>
     </span>
-    <br><br>
-
-    <p>Up Votes</p>
-    <%= answer_for_question.votes.where(like: true).count%>
-
-    <p>Down Votes</p>
-    <%= answer_for_question.votes.where(like: false).count%>
-
-    <%= form_for ([@question, answer_for_question, @vote]) do |f| %>
-      <%= f.label :up_vote %>
-      <%= f.radio_button :like, true, :value => true%><br>
-      <%= f.label :down_vote %>
-      <%= f.radio_button :like, false, :value => false%><br>
-      <%= f.submit "Submit"%>
-    <%end%>
+    <br>
 
 <div class="answer_comments">
     <% answer_for_question.comments.each do |comment_a| %>

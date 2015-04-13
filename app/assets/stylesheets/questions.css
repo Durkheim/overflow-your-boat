@@ -1,6 +1,9 @@
 .question_title {
   font-weight: bold;
   font-size: 32px;
+  display: inline-block;
+  margin-top: 0.7em;
+  margin-left: 1em;
 }
 
 .asker {
@@ -89,5 +92,11 @@
 
 .add_answer {
   margin-left: 2em;
+  font-weight: bold;
+}
+
+.votes {
+  float: left;
+  font-size: 10px;
   font-weight: bold;
 }
