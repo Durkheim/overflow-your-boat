@@ -1,7 +1,7 @@
 # overflow-your-boat
 <img src="https://travis-ci.org/chi-sea-lions-2015/overflow-your-boat.svg?branch=master">
 
-The A Team's amazing project. You're gonna love it!
+A less-cluttered version of Stack Overflow, brought to you by The A Team!
 
 **[Our user stories](https://trello.com/b/N0NRT11j/the-a-team)**
 
